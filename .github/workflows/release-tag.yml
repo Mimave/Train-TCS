@@ -1,1 +1,56 @@
+Ruta: .github/workflows/release-tag.yml
 
+Reemplaza por:
+
+name: Release
+
+on:
+
+workflow_dispatch:
+
+inputs:
+
+version:
+
+description: "Versión semántica (e.g. v0.1.0)"
+
+required: true
+
+permissions:
+
+contents: write
+
+packages: write
+
+jobs:
+
+tag:
+
+runs-on: ubuntu-latest
+
+steps:
+
+- uses: actions/checkout@v4
+- run: |
+    
+    git tag $ inputs.version
+    
+    git push origin $ inputs.version
+    
+
+Luego, orden de ejecución
+
+- Commit a main con estos cambios
+- Abre Actions y revisa:
+    - CI debe salir verde
+    - Docker Publish debe construir y publicar [ghcr.io/mimave/train-tcs:latest](http://ghcr.io/mimave/train-tcs:latest)
+    - Trivy se ejecutará después y subirá resultados
+- Prueba local:
+    - docker pull [ghcr.io/mimave/train-tcs:latest](http://ghcr.io/mimave/train-tcs:latest)
+    - docker run --rm [ghcr.io/mimave/train-tcs:latest](http://ghcr.io/mimave/train-tcs:latest)
+
+Cuando Publish quede verde, si quieres, te paso:
+
+- Badges listos para README
+- Upgrade a multi-arch y cache una vez estabilizado
+- Workflow para versionar con tags vX.Y.Z automáticamente
