@@ -1,0 +1,11 @@
+- En main, crea o actualiza:
+    - Dockerfile
+    - .dockerignore
+    - .gitignore
+    - [README.md](http://README.md)
+    - .github/workflows/ci.yml
+    - .github/workflows/docker-publish.yml
+    - .github/workflows/release-tag.yml
+    - .github/workflows/security.yml
+    - .github/workflows/trivy.yml
+    - .github/dependabot.yml
